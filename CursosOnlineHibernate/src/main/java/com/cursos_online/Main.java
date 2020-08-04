@@ -29,6 +29,9 @@ public class Main {
 	ingresarCurso(cur1);
 	ingresarCurso(cur2);
 		
+	modificarCurso(2,"Ingles");
+	eliminarCurso(1);
+		
 	Estudiante estu1 = new Estudiante(0,"Ernesto","Arteaga");
 	Estudiante estu2 = new Estudiante(0,"Rosa","Mariam");
 	Estudiante estu3 = new Estudiante(0,"Loor","Sanchez");
@@ -37,8 +40,8 @@ public class Main {
 	ingresarestu(estu2);
 	ingresarestu(estu3);
 	
-	Estudiante est1 = new Estudiante(0,"Ernesto","Arteaga");
-	modificarEstudiante(est1);
+	modificarEstudiante(3,"Andres","Ponguillo");
+	eliminarEstudiante(4);
 	
 	
 	Curso cr2 = new Curso("Hibernate oara principiantes");
@@ -65,11 +68,13 @@ public class Main {
 	
 }
 	
-	static void modificarCurso(Curso curso) {
+	static void modificarCurso(int id, String nombre) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		Curso curso=
+			(Curso)session.get(Curso.class,id);
+		curso.setDescripcion(nombre);
 		session.update(curso);
-		
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -78,8 +83,9 @@ public class Main {
 	static void eliminarCurso(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		Curso curso=
+			(Curso)session.get(Curso.class,id);
 		session.delete(id);
-		
 		session.getTransaction().commit();
 		session.close();
 	}
@@ -88,21 +94,23 @@ public class Main {
 	
 
 	
-	static void modificarEstudiante(Estudiante estudiante) {
+	static void modificarEstudiante(int id, String nombre, String, apellido) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		Estudiante estudiante=
+			(Estudiante)session.get(Estudiante.class,id);
 		session.update(estudiante);
-		
 		session.getTransaction().commit();
 		session.close();
 	}
 		
 	
-	static void eliminarEstudianteo(int id) {
-		Session session = sessionFactory.openSession();
+	static void eliminarEstudiante(int id) {
+		ession session = sessionFactory.openSession();
 		session.beginTransaction();
+		Estudiante estudiante=
+			(Estudiante)session.get(Estudiante.class,id);
 		session.delete(id);
-		
 		session.getTransaction().commit();
 		session.close();
 	}
